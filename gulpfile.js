@@ -2,6 +2,7 @@ const gulp = require("gulp");
 const imagemin = require("gulp-imagemin");
 const uglify = require("gulp-uglify");
 const sass = require("gulp-sass");
+const concat = require("gulp-concat");
 
 
 
@@ -42,6 +43,14 @@ gulp.task('js-minify', function(){
 
 });
 
+// Scripts concat with minify JavaScript files
+gulp.task("scripts", function(){
+    gulp.src("src/js/main/*.js")
+        .pipe(concat("main.js"))
+        .pipe(uglify())
+        .pipe(gulp.dest("dist/js"));
+});
+
 // Compile SASS files
 gulp.task('sass', function (){
     gulp.src("src/scss/*.scss")
@@ -50,4 +59,12 @@ gulp.task('sass', function (){
 });
 
 // Default Gulp 
-gulp.task('default', gulp.parallel('message', 'copyHTML', 'imageMin', 'js-minify', 'sass'));
+gulp.task('default', gulp.parallel('message', 'copyHTML', 'imageMin', 'sass', 'scripts'));
+
+// Continue watching all files
+gulp.task('watch', function(){
+    gulp.watch("src/js/main/*.js", gulp.parallel("scripts"));
+    gulp.watch("src/img/*", gulp.parallel("imageMin"));
+    gulp.watch("src/scss/*.scss", gulp.parallel("sass"));
+    gulp.watch("src/*.html", gulp.parallel("copyHTML"));
+});
