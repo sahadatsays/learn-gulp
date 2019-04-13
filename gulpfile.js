@@ -1,5 +1,6 @@
 const gulp = require("gulp");
 const imagemin = require("gulp-imagemin");
+const uglify = require("gulp-uglify");
 
 
 /** 
@@ -32,4 +33,12 @@ gulp.task("imageMin", function (){
     gulp.src("src/img/*")
         .pipe(imagemin())
         .pipe(gulp.dest("dist/images"));
+});
+
+// Minify the javaScirpt files
+gulp.task('js-minify', function(){
+    gulp.src("src/js/*.js")
+    .pipe(uglify())
+    .pipe(gulp.dest("dist/js"));
+
 });

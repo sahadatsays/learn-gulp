@@ -1,0 +1,1 @@
+console.log("This is First JavaScript Console"),console.log("This is Second JavaScript Console");
