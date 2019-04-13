@@ -20,10 +20,6 @@ gulp.task('message', function(){
     return console.log("Gulp is running...");
 });
 
-// Default Gulp 
-gulp.task('default', function (){
-    return console.log('This is default Gulp !');
-});
 
 // Copy HTML file to outpu folder
 gulp.task('copyHTML', function(){
@@ -52,3 +48,6 @@ gulp.task('sass', function (){
         .pipe(sass().on("error", sass.logError))
         .pipe(gulp.dest("dist/css"));
 });
+
+// Default Gulp 
+gulp.task('default', gulp.parallel('message', 'copyHTML', 'imageMin', 'js-minify', 'sass'));
